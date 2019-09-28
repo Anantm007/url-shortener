@@ -40,10 +40,14 @@ router.post('/shorten', async (req, res) => {
     try
     {
         const url = await Url.findOne({'longurl': longurl});
-  
-        res.render('../views/url', {
-            'url' : url
-        });
+        if(url)
+        {
+
+            res.render('../views/url', {
+                'url' : url
+            });
+        }
+
     }catch(err)
     {
         console.log(err);
@@ -68,9 +72,9 @@ router.post('/shorten', async (req, res) => {
         const newurl2 = await newUrl.save();
         console.log(newurl2);
        
-        res.render('../views/url', {
-            'url' : newurl2
-        });    
+     res.render('../views/url', {
+          'url' : newurl2
+    });    
     }catch(err)
     {
         console.log(err);
