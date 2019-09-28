@@ -16,6 +16,8 @@ mongoose.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, (err,db)
     else
     console.log('Database Connected');
 });
+mongoose.set('useFindAndModify', false);
+
 
 // Getting data in json format
 app.use(bodyParser.urlencoded({extended:true}));

@@ -1,1 +1,8 @@
 <h1> <%= url.shorturl %> </h1>
+
+<h1>Create custom code</h1>
+<form action="/custom/<%= url.code %>" method="POST">
+    custom:<br>
+  <input type="text" name="custom" value=""><br>
+  <input type="submit" value="Submit">
+</form>

@@ -37,21 +37,18 @@ router.post('/shorten', async (req, res) => {
     }
 
     // Check if the long url already exists in the database
-    try
-    {
-        const url = await Url.findOne({'longurl': longurl});
-        if(url)
+    const oldurl = await Url.findOne({'longurl': longurl});
+
+        if(oldurl)
         {
 
             res.render('../views/url', {
-                'url' : url
+                'url' : oldurl
             });
         }
 
-    }catch(err)
+    else
     {
-        console.log(err);
-    }
 
     // Generate unique short id
     const code = shortid.generate();
@@ -80,14 +77,50 @@ router.post('/shorten', async (req, res) => {
         console.log(err);
     }
 
+    }
 });
   
+router.post('/custom/:code', async(req,res) => {
+
+    const {custom} = req.body;
+    const url = await Url.findOne({'code': req.params.code});
+
+    var newvalues = { $set: {code: custom, shorturl: req.headers.host + '/' + custom } };
+   
+    if(url)
+    {
+        Url.findOneAndUpdate({'code': req.params.code}, newvalues, async(err, data) => {
+            if(err)
+            res.send("Error");
+        else    
+        {
+            const url2 = await Url.findOne({'code': custom});
+            res.render('../views/url', {
+                'url' : url2
+        });  
+        }
+       
+
+});
+    }
+    else
+    {
+        res.send("Invalid url code");
+    }
+
+});
+
 router.get('/:code', async(req,res) => {
     const url = await Url.findOne({'code': req.params.code});
 
     if(url)
     {
-        res.send("Hello world");
+        // checking validity of the url
+    if(!validUrl.isUri(url.shorturl))
+    {
+        res.send("Invalid short url");
+    }
+        res.redirect(url.longurl);
     }
 
     else
