@@ -1,0 +1,21 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A custom url shortener built using Mongo, Express and Node",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "dev": "npm run server"
+  },
+  "author": "Anant Mathur",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.1.2",
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1",
+    "nodemon": "^1.19.2",
+    "shortid": "^2.2.15",
+    "url": "^0.11.0"
+  }
+}
