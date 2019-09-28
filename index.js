@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const config = require('config');
-
+const bodyParser = require('body-parser');
 
 // MongoDB url
 const url = config.get('mongoURI');
@@ -17,14 +17,11 @@ mongoose.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, (err,db)
     console.log('Database Connected');
 });
 
-
-//view engine
-app.set('view engine','ejs');
-app.set('views','./Views');
-
+// Getting data in json format
+app.use(bodyParser.urlencoded({extended:true}));
 
 // routes
-//app.use(require('./routes/index.js'));
+app.use('/', require('./routes/index'));
 
 // Starting the server
 app.listen(process.env.PORT || 3000, ()=>{
