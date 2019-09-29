@@ -43,7 +43,8 @@ router.post('/shorten', async (req, res) => {
         {
 
             res.render('../views/url', {
-                'url' : oldurl
+                'url' : oldurl,
+                'message' : ""
             });
         }
 
@@ -70,7 +71,8 @@ router.post('/shorten', async (req, res) => {
         console.log(newurl2);
        
      res.render('../views/url', {
-          'url' : newurl2
+          'url' : newurl2,
+          'message' : ""
     });    
     }catch(err)
     {
@@ -84,30 +86,46 @@ router.post('/custom/:code', async(req,res) => {
 
     const {custom} = req.body;
     const url = await Url.findOne({'code': req.params.code});
-
-    var newvalues = { $set: {code: custom, shorturl: req.headers.host + '/' + custom } };
-   
-    if(url)
+    
+    
+    // check if custom code already exists
+    const oldcustom = await Url.findOne({'code': custom})
+    if(oldcustom)
     {
-        Url.findOneAndUpdate({'code': req.params.code}, newvalues, async(err, data) => {
-            if(err)
-            res.send("Error");
-        else    
-        {
-            const url2 = await Url.findOne({'code': custom});
-            res.render('../views/url', {
-                'url' : url2
-        });  
-        }
-       
-
-});
+        res.render('../views/url', {
+            'url': url,
+            'message' : "code aleready exists, please create a unique one"
+    });  
     }
+
     else
     {
-        res.send("Invalid url code");
-    }
 
+        var newvalues = { $set: {code: custom, shorturl: req.headers.host + '/' + custom } };
+   
+        if(url)
+        {
+            Url.findOneAndUpdate({'code': req.params.code}, newvalues, async(err, data) => {
+                if(err)
+                res.send("Error");
+            else    
+            {
+                const url2 = await Url.findOne({'code': custom});
+                res.render('../views/url', {
+                    'url' : url2,
+                    'message' : ""
+            });  
+            }
+           
+    
+    });
+        }
+        else
+        {
+            res.send("Invalid url code");
+        }
+    
+    }
 });
 
 router.get('/:code', async(req,res) => {
