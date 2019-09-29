@@ -130,6 +130,15 @@ router.post('/custom/:code', async(req,res) => {
     }
 });
 
+
+// About page
+router.get('/about', async(req,res) =>{
+    console.log("helo");
+    
+    res.render("../views/about");
+});
+
+// Redirecting to the original page
 router.get('/:code', async(req,res) => {
     const url = await Url.findOne({'code': req.params.code});
 
@@ -148,5 +157,6 @@ router.get('/:code', async(req,res) => {
         res.send("URL not found");
     }
 });
+
 
 module.exports = router;

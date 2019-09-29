@@ -18,26 +18,11 @@
       document.getElementById("demo").innerHTML= x;
     }
     </script>
+
+  <!--Navigation bar-->    
+  <% include ./includes/navbar.ejs %>
+
 </head>
-
-
-<nav class="navbar navbar-webmaster">
-  <div class="container">
-    <div class="navbar-header">
-   
-    <a class="navbar-brand" href="/">URL Shortener</a>
-  </div>
-  <div class="collapse navbar-collapse" id="navbar">
-    <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Archive<span class="sr-only">(current)</span></a></li>
-        <li class="active"><a href="#">About<span class="sr-only">(current)</span></a></li>
-      </ul>
-    <form class="navbar-form navbar-right search-form" role="search">
-      <input type="text" class="form-control" placeholder="Search" />
-    </form>
-  </div>
-</div>
-</nav>
 <body>
    
   <div class="top">
@@ -53,7 +38,7 @@
             <input type="text" required name="longurl">
             <span class="highlight"></span>
             <span class="bar"></span>
-            <label>Enter Long URL</label>
+            <label>Enter Long URL *</label>
         </div>
         <br><br>
         <div class="group">
