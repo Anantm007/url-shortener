@@ -14,7 +14,9 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 // Home page
 router.get('/', async(req,res) =>{
-    res.render("../views/home");
+    res.render("../views/home",{
+        'base': req.headers.host
+    });
 });
 
 // Creating a new short url
