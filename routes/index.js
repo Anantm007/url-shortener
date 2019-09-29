@@ -26,7 +26,9 @@ router.post('/shorten', async (req, res) => {
     
     const {longurl} = req.body;
 
-    const baseurl = req.headers.host;
+    const baseurl = 'http://' + req.headers.host;
+    console.log(baseurl);
+    
 
     // checking validity of base url
     if(!validUrl.isUri(baseurl))
@@ -90,8 +92,6 @@ router.post('/shorten', async (req, res) => {
 router.post('/custom/:code', async(req,res) => {
 
     const {custom} = req.body;
-    const url = await Url.findOne({'code': req.params.code});
-    
     
     // check if custom code already exists
     const oldcustom = await Url.findOne({'code': custom})
@@ -99,14 +99,18 @@ router.post('/custom/:code', async(req,res) => {
     {
         res.render('../views/url', {
             'url': url,
-            'message' : "Sorry, this code aleready exists, please enter a new one"
+            'message' : "Sorry, this code is aleready in use, please enter a new one"
     });  
     }
 
     else
     {
+        const url = await Url.findOne({'code': req.params.code});
 
-        var newvalues = { $set: {code: custom, shorturl: req.headers.host + '/' + custom } };
+        const baseurl = 'http://' + req.headers.host;
+        const urln = baseurl + '/' + custom;
+        console.log(urln);
+        var newvalues = { $set: {code: custom, shorturl: urln } };
    
         if(url)
         {
@@ -148,7 +152,8 @@ router.get('/about', async(req,res) =>{
 });
 
 // Redirecting to the original URL
-router.get('/:code', async(req,res) => {
+router.get('/:code', async(req,res) => {    
+    
     const url = await Url.findOne({'code': req.params.code});
 
     if(url)
