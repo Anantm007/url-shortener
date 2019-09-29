@@ -136,6 +136,7 @@ router.post('/custom/:code', async(req,res) => {
 // Get all the short urls
 router.get('/archive', async(req,res)=>{
     const urls  = await Url.find();
+console.log(urls);
 
     res.render('../views/archive', {
        'urls' : urls

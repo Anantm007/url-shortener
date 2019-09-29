@@ -19,26 +19,18 @@
 <div class="container">
 
         <h2>Find all the created URLs</h2>
-        <br><br>
-        <div class="card bg-dark">
-          <div class="card-body">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some example text. Some example text.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
-        </div>
+<br>
+<%        urls.forEach(function(url) { %>
 
-        <br>
-        <div class="card bg-dark">
-                <div class="card-body">
-                  <h4 class="card-title">Card title</h4>
-                  <p class="card-text">Some example text. Some example text.</p>
-                  <a href="#" class="card-link">Card link</a>
-                  <a href="#" class="card-link">Another link</a>
-                </div>
-              </div>
-
+            <div class="card"style="background: #512c96">
+                    <div class="card-body">
+                      <h4 class="card-title"><a href="<%=url.longurl%>"  style="color: #f9c6ba"><%=url.shorturl%></a></h4>
+                      <p class="card-text">Original URL: <%=url.longurl%> </p>
+                        <p class="card-text">Date Created: <%=url.date%> </p>
+                      </div>
+                  </div>
+    <br>
+        <% }); %>
      
       </div>
 <body>
