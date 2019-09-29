@@ -99,7 +99,7 @@ router.post('/custom/:code', async(req,res) => {
     {
         res.render('../views/url', {
             'url': url,
-            'message' : "code aleready exists, please create a unique one"
+            'message' : "Sorry, this code aleready exists, please enter a new one"
     });  
     }
 
@@ -136,7 +136,6 @@ router.post('/custom/:code', async(req,res) => {
 // Get all the short urls
 router.get('/archive', async(req,res)=>{
     const urls  = await Url.find();
-console.log(urls);
 
     res.render('../views/archive', {
        'urls' : urls
@@ -164,7 +163,7 @@ router.get('/:code', async(req,res) => {
 
     else
     {
-        res.send("URL not found");
+        res.render('../views/errorpage');
     }
 });
 
