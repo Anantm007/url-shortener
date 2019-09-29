@@ -1,4 +1,8 @@
-<!-- Latest compiled and minified CSS -->
+<html>
+
+<head>
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -6,13 +10,18 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 
-<h1> <%= url.shorturl %> </h1>
-<h3><%=message%></h3>
+<body>
+  <h1> <%= url.shorturl %> </h1>
+  <h3><%=message%></h3>
+  
+  <h1>Create custom code</h1>
+  <form action="/custom/<%= url.code %>" method="POST">
+      custom:<br>
+    <input type="text" name="custom" value=""><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
 
-<h1>Create custom code</h1>
-<form action="/custom/<%= url.code %>" method="POST">
-    custom:<br>
-  <input type="text" name="custom" value=""><br>
-  <input type="submit" value="Submit">
-</form>
+</html>
