@@ -5,6 +5,7 @@ const shortid = require('shortid');
 const Url = require('../models/Url');
 var ejs = require('ejs');
 
+// set up body-parser
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({
     extended: true
@@ -18,6 +19,7 @@ router.get('/', async(req,res) =>{
         'base': req.headers.host
     });
 });
+
 
 // Creating a new short url
 router.post('/shorten', async (req, res) => {
@@ -41,14 +43,14 @@ router.post('/shorten', async (req, res) => {
     // Check if the long url already exists in the database
     const oldurl = await Url.findOne({'longurl': longurl});
 
-        if(oldurl)
-        {
+    if(oldurl)
+    {
 
             res.render('../views/url', {
                 'url' : oldurl,
                 'message' : ""
             });
-        }
+    }
 
     else
     {
@@ -84,6 +86,7 @@ router.post('/shorten', async (req, res) => {
     }
 });
   
+// Adding custom code in url
 router.post('/custom/:code', async(req,res) => {
 
     const {custom} = req.body;
@@ -130,15 +133,21 @@ router.post('/custom/:code', async(req,res) => {
     }
 });
 
+// Get all the short urls
+router.get('/archive', async(req,res)=>{
+    const urls  = await Url.find();
+
+    res.render('../views/archive', {
+       'urls' : urls
+    });
+});
 
 // About page
-router.get('/about', async(req,res) =>{
-    console.log("helo");
-    
+router.get('/about', async(req,res) =>{    
     res.render("../views/about");
 });
 
-// Redirecting to the original page
+// Redirecting to the original URL
 router.get('/:code', async(req,res) => {
     const url = await Url.findOne({'code': req.params.code});
 

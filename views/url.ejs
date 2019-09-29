@@ -10,18 +10,35 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--Navigation bar-->    
+<% include ./includes/navbar.ejs %>
 </head>
 
 <body>
-  <h1> <%= url.shorturl %> </h1>
-  <h3><%=message%></h3>
-  
-  <h1>Create custom code</h1>
+    <h1 style="text-align: center"> Your short URL has been created</h1>
+    <br><br>
+    <h4 style="text-align: center"><a href="<%=url.longurl%>"><%=url.shorturl%></a></h4>
+    
+    <h3><%=message%></h3>
+ 
+  <div class="col-lg-offset-4 col-lg-4" id="panel">
   <form action="/custom/<%= url.code %>" method="POST">
-      custom:<br>
-    <input type="text" name="custom" value=""><br>
-    <input type="submit" value="Submit">
+    
+    <label style="text-align: center;margin-top: 20px;margin-left: 15rem">Customise your URL</label>
+    <br><br><br><br>
+    <div class="group">
+        <input type="text" required name="custom" autocomplete="off">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label>Enter Custom URL code *</label>
+    </div>
+    <br><br>
+
+      <div class="group">
+          <center> <button type="submit" class="btn btn-warning">SUBMIT </button></center>
+      </div>
   </form>
+  </div>
 </body>
 
 </html>
