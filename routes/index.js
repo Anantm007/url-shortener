@@ -15,7 +15,7 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 // Home page
 router.get('/', async(req,res) =>{
-    res.render("../views/home",{
+    return res.render("../views/home",{
         'base': req.headers.host
     });
 });
@@ -27,19 +27,19 @@ router.post('/shorten', async (req, res) => {
     const {longurl} = req.body;
 
     const baseurl = 'http://' + req.headers.host;
-    console.log(baseurl);
+    
     
 
     // checking validity of base url
     if(!validUrl.isUri(baseurl))
     {
-        res.send("Invalid base url");
+        return res.send("Invalid base url");
     }
 
     // checking validity of long url
     if(!validUrl.isUri(longurl))
     {
-        res.send("Invalid long url");
+        return res.send("Invalid long url");
     }
 
     // Check if the long url already exists in the database
@@ -48,7 +48,7 @@ router.post('/shorten', async (req, res) => {
     if(oldurl)
     {
 
-            res.render('../views/url', {
+            return res.render('../views/url', {
                 'url' : oldurl,
                 'message' : ""
             });
@@ -74,15 +74,15 @@ router.post('/shorten', async (req, res) => {
         
         
         const newurl2 = await newUrl.save();
-        console.log(newurl2);
+        
        
-     res.render('../views/url', {
+     return res.render('../views/url', {
           'url' : newurl2,
           'message' : ""
     });    
     }catch(err)
     {
-        console.log(err);
+        return res.send(err);
     }
 
     }
@@ -97,8 +97,8 @@ router.post('/custom/:code', async(req,res) => {
     const oldcustom = await Url.findOne({'code': custom})
     if(oldcustom)
     {
-        res.render('../views/url', {
-            'url': url,
+        return res.render('../views/url', {
+            'url': oldcustom,
             'message' : "Sorry, this code is aleready in use, please enter a new one"
     });  
     }
@@ -109,18 +109,18 @@ router.post('/custom/:code', async(req,res) => {
 
         const baseurl = 'http://' + req.headers.host;
         const urln = baseurl + '/' + custom;
-        console.log(urln);
+        
         var newvalues = { $set: {code: custom, shorturl: urln } };
    
         if(url)
         {
             Url.findOneAndUpdate({'code': req.params.code}, newvalues, async(err, data) => {
                 if(err)
-                res.send("Error");
+                return res.send("Error");
             else    
             {
                 const url2 = await Url.findOne({'code': custom});
-                res.render('../views/url', {
+                return res.render('../views/url', {
                     'url' : url2,
                     'message' : ""
             });  
@@ -131,7 +131,7 @@ router.post('/custom/:code', async(req,res) => {
         }
         else
         {
-            res.send("Invalid url code");
+            return res.send("Invalid url code");
         }
     
     }
@@ -139,16 +139,16 @@ router.post('/custom/:code', async(req,res) => {
 
 // Get all the short urls
 router.get('/archive', async(req,res)=>{
-    const urls  = await Url.find();
+    const urls  = await Url.find().sort({ date: -1 });
 
-    res.render('../views/archive', {
+    return res.render('../views/archive', {
        'urls' : urls
     });
 });
 
 // About page
 router.get('/about', async(req,res) =>{    
-    res.render("../views/about");
+    return res.render("../views/about");
 });
 
 // Redirecting to the original URL
@@ -161,14 +161,22 @@ router.get('/:code', async(req,res) => {
         // checking validity of the url
     if(!validUrl.isUri(url.shorturl))
     {
-        res.send("Invalid short url");
+
+        return res.send("Invalid short url");
     }
+    var newvalues = { $set: {clicks: url.clicks+1} };
+   
+        Url.findOneAndUpdate({'code': req.params.code}, newvalues, async(err, data) => {
+                if(err)
+                return res.send("Error");
+        });
+        
         res.redirect(url.longurl);
     }
 
     else
     {
-        res.render('../views/errorpage');
+        return res.render('../views/errorpage');
     }
 });
 
