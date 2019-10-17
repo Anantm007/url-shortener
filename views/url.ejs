@@ -19,6 +19,13 @@
     <br><br>
     <h4 style="text-align: center"><a href="/<%=url.code%>"><%=url.shorturl%></a></h4>
     
+    <!--Copy to clipboard-->
+    <div id="secretInfo" style="display: none;"><%=url.shorturl%></div>
+    <div class="wrapper" style="text-align: center;">
+        <button type="button" class="btn btn-primary" id="btnCopy">Copy</button>
+    </div>
+    <!--End Copy to clipboard-->
+    
     <h3 style="text-align: center"><%=message%></h3>
  
   <div class="col-lg-offset-4 col-lg-4" id="panel">
@@ -39,6 +46,28 @@
       </div>
   </form>
   </div>
+  
+<!--Copy to clipboard-->
+<script type="text/javascript">
+  var $body = document.getElementsByTagName('body')[0];
+  var $btnCopy = document.getElementById('btnCopy');
+  var secretInfo = document.getElementById('secretInfo').innerHTML;
+  console.log(secretInfo);
+  var copyToClipboard = function(secretInfo) {
+    var $tempInput = document.createElement('INPUT');
+    $body.appendChild($tempInput);
+    $tempInput.setAttribute('value', secretInfo)
+    $tempInput.select();
+    document.execCommand('copy');
+    $body.removeChild($tempInput);
+  }
+  $btnCopy.addEventListener('click', function(ev) {
+    copyToClipboard(secretInfo);
+    alert("Copied to clipboard");
+
+  });
+</script>
+
 </body>
 
 </html>
