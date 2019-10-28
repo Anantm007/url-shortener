@@ -39,7 +39,19 @@
         <span class="bar"></span>
         <label>Enter Custom URL code *</label>
     </div>
+    
+
+    <input type="text" disabled>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label> 
+      <input name="findbase" type="hidden" value="findbase" />  </label>
     <br><br>
+
+<!-- To get current hostname for base URL -->
+<script type="text/javascript">
+document.getElementsByName("findbase")[0].value = window.location.hostname;
+</script>
 
       <div class="group">
           <center> <button type="submit" class="btn btn-warning">SUBMIT </button></center>

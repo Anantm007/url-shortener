@@ -15,20 +15,17 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 // Home page
 router.get('/', async(req,res) =>{
-    return res.render("../views/home",{
-        'base': req.headers.host
-    });
+    return res.render("../views/home");
 });
 
 
 // Creating a new short url
 router.post('/shorten', async (req, res) => {
     
-    const {longurl} = req.body;
+    console.log(req.body);
+    const {longurl, findbase} = req.body;
 
-    const baseurl = 'http://' + req.headers.host;
-    
-    
+    const baseurl = findbase;
 
     // checking validity of base url
     if(!validUrl.isUri(baseurl))
@@ -61,7 +58,7 @@ router.post('/shorten', async (req, res) => {
     const code = shortid.generate();
 
     // Short URL
-    const shorturl = baseurl + '/' + code;
+    const shorturl = baseurl + code;
 
     try{
 
@@ -91,7 +88,7 @@ router.post('/shorten', async (req, res) => {
 // Adding custom code in url
 router.post('/custom/:code', async(req,res) => {
 
-    const {custom} = req.body;
+    const {custom, findbase} = req.body;
     
     // check if custom code already exists
     const oldcustom = await Url.findOne({'code': custom})
@@ -107,8 +104,8 @@ router.post('/custom/:code', async(req,res) => {
     {
         const url = await Url.findOne({'code': req.params.code});
 
-        const baseurl = 'http://' + req.headers.host;
-        const urln = baseurl + '/' + custom;
+        const baseurl = 'http://' + findbase + '/';
+        const urln = baseurl + custom;
         
         var newvalues = { $set: {code: custom, shorturl: urln } };
    
