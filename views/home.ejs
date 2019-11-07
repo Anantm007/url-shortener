@@ -12,17 +12,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
-  <!--Navigation bar-->    
+  <!--Navigation bar-->
   <% include ./includes/navbar.ejs %>
 
 </head>
 <body>
-   
+
   <div class="top">
     <h1>URL Shortener</h1>
   </div>
   <div class="col-lg-offset-4 col-lg-4" id="panel">
-      
+
       <form action="/shorten" method="POST">
         <br><br><br>
         <div class="group">
@@ -32,13 +32,13 @@
             <label>Enter Long URL *</label>
         </div>
         <br><br>
+
         <div class="group">
-          
-            <input type="text" disabled>
+            <input type="text" name="findbase" value="findbase">
             <span class="highlight"></span>
             <span class="bar"></span>
             <label> BASE URL -</label>
-            <input class="bar" name="findbase" value="findbase" disabled/>
+            <!--<input class="bar" disabled/> -->
         </div>
         <br><br>
 
