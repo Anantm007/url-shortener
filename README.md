@@ -11,4 +11,6 @@ This is a url shortening service like bit.ly built using MongoDB, Express.js and
 ### Note
 The base URL gets already changed to the domain host where the application is deployed
 
-Visit the deployed application : https://agile-cliffs-38866.herokuapp.com/
+It is being used by student societies / clubs in my college with the short urls receving thousands of clicks till date.
+
+Visit the deployed application : https://prakriti.cf or https://agile-cliffs-38866.herokuapp.com/
