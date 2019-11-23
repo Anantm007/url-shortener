@@ -18,9 +18,11 @@ router.get('/', async(req,res) =>{
     return res.render("../views/home");
 });
 
-// Get total number of clicks
+// Get total number of clicks and number of urls shortened
 router.get('/clicks', async(req, res) => {
-    let sum = 0;
+
+    let sum = 0, numberOfUrl;
+
     await Url.find({}, (err, url) => {
         if(err)
         {
@@ -33,7 +35,18 @@ router.get('/clicks', async(req, res) => {
         })
     })
 
-    res.send(`Total number of clicks : ${sum}`);
+    
+    await Url.countDocuments({}, (err, count) => {
+        if(err)
+        console.log(err);
+
+        else
+        {
+            numberOfUrl = count;
+        }
+    })
+    
+    res.send(`Total URLs shortened: ${numberOfUrl}  \n Total number of clicks : ${sum}`);
 })
 
 // Creating a new short url
