@@ -18,6 +18,23 @@ router.get('/', async(req,res) =>{
     return res.render("../views/home");
 });
 
+// Get total number of clicks
+router.get('/clicks', async(req, res) => {
+    let sum = 0;
+    await Url.find({}, (err, url) => {
+        if(err)
+        {
+            console.log(err);
+            return;
+        }
+
+        url.forEach((u) => {
+            sum += u.clicks;
+        })
+    })
+
+    res.send(`Total number of clicks : ${sum}`);
+})
 
 // Creating a new short url
 router.post('/shorten', async (req, res) => {
