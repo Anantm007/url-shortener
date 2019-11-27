@@ -1,0 +1,41 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!--Navigation bar-->    
+<% include ./includes/navbar.ejs %>
+</head>
+<div class="container">
+
+        <h2>Delete any created URL</h2>
+<br>
+<%        urls.forEach(function(url) { %>
+
+            <div class="card"style="background: #2e279d">
+                    <div class="card-body">
+                      <h4 class="card-title"><a href="/<%=url.code%>"  style="color: #f9c6ba"><%=url.shorturl%></a></h4>
+                      <p class="card-text">Original URL: <%=url.longurl%> </p>
+                      <a href="/delete/url/<%=url.id%>"><button class="btn btn-danger">Delete</button> </a>
+                      
+                      </div>
+                  </div>
+    <br>
+        <% }); %>
+     
+      </div>
+<body>
+    
+</body>
+
+</html>

@@ -173,6 +173,29 @@ router.get('/archive', async(req,res)=>{
     });
 });
 
+// List urls for deletion
+router.get('/delete/url', async(req,res)=>{
+    const urls  = await Url.find().sort({ date: -1 });
+
+    return res.render('../views/deleteUrl', {
+       'urls' : urls
+    });
+});
+
+// Delete a url by id (the method is get to make request from frontend)
+router.get('/delete/url/:id', async(req, res) => {
+    await Url.findByIdAndDelete(req.params.id, (err, url) => {
+        if(err)
+        console.log(err);
+    });
+
+    const urls  = await Url.find().sort({ date: -1 });
+
+    return res.render('../views/deleteUrl', {
+       'urls' : urls
+    });
+})
+
 // About page
 router.get('/about', async(req,res) =>{    
     return res.render("../views/about");
