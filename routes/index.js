@@ -119,7 +119,7 @@ router.post('/shorten', async (req, res) => {
 router.post('/custom/:code', async(req,res) => {
 
     const {custom, findbase} = req.body;
-    
+
     // check if custom code already exists
     const oldcustom = await Url.findOne({'code': custom})
     if(oldcustom)
