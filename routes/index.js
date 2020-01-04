@@ -173,6 +173,66 @@ router.get('/archive', async(req,res)=>{
     });
 });
 
+// List urls for updation
+router.get('/update/url', async(req,res)=>{
+    const urls  = await Url.find().sort({ date: -1 });
+
+    return res.render('../views/updateUrl', {
+       'urls' : urls
+    });
+});
+
+
+// Speicfic Url updation form
+router.get('/update/url/:id', async(req, res) => {
+    await Url.findById(req.params.id, (err, url) => {
+        if(err)
+        console.log(err);
+
+        
+    return res.render('../views/updateOneUrl', {
+        'url' : url
+     });
+    });
+
+})
+
+
+// Update a Url: longUrl and Code
+router.post('/edit/:id', async(req, res) => {
+    console.log(req.body);
+
+    const newValues = {
+        longurl: req.body.longurl,
+        code: req.body.code,
+        shorturl: req.body.findbase + req.body.code
+    }
+
+
+        // check if custom code already exists
+        const oldcustom = await Url.findOne({'code': req.body.code, _id: { $nin: [req.params.id] }})
+        if(oldcustom)
+        {
+            return res.json({
+                'message' : "Sorry, this code is short code is aleready in use, please enter a new one"
+            });
+                
+        }
+    
+
+    const url = await Url.findByIdAndUpdate(req.params.id, newValues, {new: true}, (err, u) => {
+        if(err)
+        console.log(err);
+
+        console.log("object");
+    });
+
+    return res.render('../views/updateOneUrl', {
+        'url' : url
+     });
+
+})
+
 // List urls for deletion
 router.get('/delete/url', async(req,res)=>{
     const urls  = await Url.find().sort({ date: -1 });

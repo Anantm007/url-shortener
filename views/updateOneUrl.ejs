@@ -1,0 +1,50 @@
+<html>
+
+<head>
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!--Navigation bar-->    
+<% include ./includes/navbar.ejs %>
+</head>
+<div class="container">
+
+        <h2>Click on the fields to Edit them</h2>
+<br><br>
+            <form action="/edit/<%=url._id%>" method = "POST">
+                
+                    <h4 class="text-danger">Long Url :</h4>
+                    <input type="text" name="longurl" value="<%=url.longurl%>" required />
+                    <br><br>
+
+                    <h4 class="text-danger">Short Code :</h4>
+                    <input type="text" name="code" value="<%=url.code%>" required />
+    
+                    <input name="findbase" type="hidden" value="findbase" />  </label>
+    
+                    <br><br>
+                    <button type="submit" class="btn btn-warning">EDIT</button>
+
+                    
+                    <!-- To get current hostname for base URL -->
+                    <script type="text/javascript">
+                      document.getElementsByName("findbase")[0].value = window.location.hostname;
+                      </script>
+            </form>
+    <br>
+     
+      </div>
+<body>
+    
+</body>
+
+</html>
