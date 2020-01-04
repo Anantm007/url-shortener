@@ -202,10 +202,19 @@ router.get('/update/url/:id', async(req, res) => {
 router.post('/edit/:id', async(req, res) => {
     console.log(req.body);
 
+    // Return is new longurl is not valid
+    if(!validUrl.isUri(req.body.longurl))
+    {
+        return res.json({
+          message:  "Invalid long url"
+        });
+    }
+
+    // New values for updation
     const newValues = {
         longurl: req.body.longurl,
         code: req.body.code,
-        shorturl: req.body.findbase + req.body.code
+        shorturl: 'http://' + req.body.findbase + '/' + req.body.code
     }
 
 
