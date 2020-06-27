@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const config = require('config');
 const bodyParser = require('body-parser');
 
-// MongoDB url
-const url = config.get('mongoURI');
+// Config variables
+require('dotenv').config();
+
 
 //Connecting to the database
 mongoose.promise = global.Promise;
-mongoose.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, (err,db)=> {
+mongoose.connect(process.env.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true}, (err,db)=> {
     if(err)
     console.log(err);
 

@@ -49,13 +49,74 @@ router.get('/clicks', async(req, res) => {
     res.send(`Total URLs shortened: ${numberOfUrl}  \n Total number of clicks : ${sum}`);
 })
 
+// Creating short url from params
+router.get('/api', async(req, res) => {
+    const baseurl = `${req.protocol}://${req.get('host')}/`;
+    const longurl = req.query.longUrl;
+
+    // checking validity of base url
+    if(!validUrl.isUri(baseurl))
+    {
+        return res.send("Invalid base url");
+    }
+
+    // checking validity of long url
+    if(!validUrl.isUri(longurl))
+    {
+        return res.send("Invalid long url");
+    }
+
+    // Check if the long url already exists in the database
+    const oldurl = await Url.findOne({'longurl': longurl});
+
+    if(oldurl)
+    {
+        return res.json({
+            success: true,
+            'url' : oldurl,
+        });
+    }
+
+    else
+    {
+        // Generate unique short id
+        const code = shortid.generate();
+
+        // Short URL
+        const shorturl = baseurl + code;
+
+        try{
+
+            const newUrl = new Url({
+                longurl: longurl,
+                code: code,
+                shorturl: shorturl,
+                date: new Date()       
+            });
+            
+            const newurl2 = await newUrl.save();
+                        
+            return res.json({
+                success: true,
+                'shorturl' : newurl2.shorturl,
+            });    
+        } catch(err) 
+        {
+            return res.json({
+                success: false,
+                err
+            });
+        }
+    }
+});
+
 // Creating a new short url
 router.post('/shorten', async (req, res) => {
     
     console.log(req.body);
-    const {longurl, findbase} = req.body;
+    const {longurl} = req.body;
 
-    const baseurl = findbase;
+    const baseurl = `${req.protocol}://${req.get('host')}/`;
 
     // checking validity of base url
     if(!validUrl.isUri(baseurl))
