@@ -15,7 +15,7 @@ router.use(bodyParser.json({type: 'application/json'}));
 
 // Home page
 router.get('/', async(req,res) =>{
-    return res.render("../views/home");
+    return res.redirect("https://99billa.com")
 });
 
 // Get total number of clicks and number of urls shortened
@@ -51,7 +51,7 @@ router.get('/clicks', async(req, res) => {
 
 // Creating short url from params
 router.get('/api', async(req, res) => {
-    const baseurl = `${req.protocol}://${req.get('host')}/`;
+    const baseurl = `http://s.99billa.com/`;
     const longurl = req.query.longUrl;
 
     // checking validity of base url
@@ -73,7 +73,7 @@ router.get('/api', async(req, res) => {
     {
         return res.json({
             success: true,
-            'url' : oldurl,
+            shorturl : oldurl.shorturl,
         });
     }
 
@@ -98,7 +98,7 @@ router.get('/api', async(req, res) => {
                         
             return res.json({
                 success: true,
-                'shorturl' : newurl2.shorturl,
+                shorturl : newurl2.shorturl,
             });    
         } catch(err) 
         {
