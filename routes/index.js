@@ -52,8 +52,9 @@ router.get('/clicks', async(req, res) => {
 // Creating short url from params
 router.get('/api', async(req, res) => {
     const baseurl = `http://s.99billa.com/`;
-    const longurl = req.query.longUrl;
-
+    let longurl = req.query.longUrl;
+    longurl = decodeURIComponent(longurl)
+    
     // checking validity of base url
     if(!validUrl.isUri(baseurl))
     {
