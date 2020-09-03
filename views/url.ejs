@@ -1,80 +1,76 @@
 <html>
+  <head>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
 
-<head>
-  <link href="/css/styles.css" rel="stylesheet" type="text/css">
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!--Navigation bar-->
+    <% include ./includes/navbar.ejs %>
+  </head>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<!--Navigation bar-->    
-<% include ./includes/navbar.ejs %>
-</head>
+  <body>
+    <h1 style="text-align: center">Your short URL has been created</h1>
+    <br /><br />
+    <h4 style="text-align: center">
+      <a href="/<%=url.code%>"><%=url.shorturl%></a>
+    </h4>
 
-<body>
-    <h1 style="text-align: center"> Your short URL has been created</h1>
-    <br><br>
-    <h4 style="text-align: center"><a href="/<%=url.code%>"><%=url.shorturl%></a></h4>
-    
     <!--Copy to clipboard-->
-    <div id="secretInfo" style="display: none;"><%=url.shorturl%></div>
-    <div class="wrapper" style="text-align: center;">
-        <button type="button" class="btn btn-primary" id="btnCopy">Copy</button>
+    <div id="secretInfo" style="display: none"><%=url.shorturl%></div>
+    <div class="wrapper" style="text-align: center">
+      <button type="button" class="btn btn-primary" id="btnCopy">Copy</button>
     </div>
     <!--End Copy to clipboard-->
-    
+
     <h3 style="text-align: center"><%=message%></h3>
- 
-  <div class="col-lg-offset-4 col-lg-4" id="panel">
-  <form action="/custom/<%= url.code %>" method="POST">
-    
-    <label style="text-align: center;margin-top: 20px;margin-left: 15rem">Customise your URL</label>
-    <br><br><br><br>
-    <div class="group">
-        <input type="text" required name="custom" autocomplete="off">
-        <label>Enter Custom URL code *</label>
+
+    <div class="col-lg-offset-4 col-lg-4" id="panel">
+      <form action="/custom/<%= url.code %>" method="POST">
+        <label style="text-align: center; margin-top: 20px; margin-left: 15rem"
+          >Customise your URL</label
+        >
+        <br /><br /><br /><br />
+        <div class="group">
+          <input type="text" required name="custom" autocomplete="off" />
+          <label>Enter Custom URL code *</label>
+        </div>
+
+        <br /><br />
+
+        <div class="group">
+          <center>
+            <button type="submit" class="btn btn-warning">SUBMIT</button>
+          </center>
+        </div>
+      </form>
     </div>
- 
-      <input name="findbase" type="hidden" value="findbase" />  </label>
-    <br><br>
-    
 
-    
-<!-- To get current hostname for base URL -->
-<script type="text/javascript">
-document.getElementsByName("findbase")[0].value = window.location.hostname;
-</script>
-
-      <div class="group">
-          <center> <button type="submit" class="btn btn-warning">SUBMIT </button></center>
-      </div>
-  </form>
-  </div>
-  
-<!--Copy to clipboard-->
-<script type="text/javascript">
-  var $body = document.getElementsByTagName('body')[0];
-  var $btnCopy = document.getElementById('btnCopy');
-  var secretInfo = document.getElementById('secretInfo').innerHTML;
-  console.log(secretInfo);
-  var copyToClipboard = function(secretInfo) {
-    var $tempInput = document.createElement('INPUT');
-    $body.appendChild($tempInput);
-    $tempInput.setAttribute('value', secretInfo)
-    $tempInput.select();
-    document.execCommand('copy');
-    $body.removeChild($tempInput);
-  }
-  $btnCopy.addEventListener('click', function(ev) {
-    copyToClipboard(secretInfo);
-    alert("Copied to clipboard");
-
-  });
-</script>
-
-</body>
-
+    <!--Copy to clipboard-->
+    <script type="text/javascript">
+      var $body = document.getElementsByTagName("body")[0];
+      var $btnCopy = document.getElementById("btnCopy");
+      var secretInfo = document.getElementById("secretInfo").innerHTML;
+      console.log(secretInfo);
+      var copyToClipboard = function (secretInfo) {
+        var $tempInput = document.createElement("INPUT");
+        $body.appendChild($tempInput);
+        $tempInput.setAttribute("value", secretInfo);
+        $tempInput.select();
+        document.execCommand("copy");
+        $body.removeChild($tempInput);
+      };
+      $btnCopy.addEventListener("click", function (ev) {
+        copyToClipboard(secretInfo);
+        alert("Copied to clipboard");
+      });
+    </script>
+  </body>
 </html>

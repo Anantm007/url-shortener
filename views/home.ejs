@@ -1,56 +1,53 @@
 <html>
+  <head>
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
 
-<head>
-  <link href="/css/styles.css" rel="stylesheet" type="text/css">
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-
-  <!--Navigation bar-->
-  <% include ./includes/navbar.ejs %>
-
-</head>
-<body>
-
-  <div class="top">
-    <h1>URL Shortener</h1>
-  </div>
-  <div class="col-lg-offset-4 col-lg-4" id="panel">
-
+    <!--Navigation bar-->
+    <% include ./includes/navbar.ejs %>
+  </head>
+  <body>
+    <div class="top">
+      <h1>URL Shortener</h1>
+    </div>
+    <div class="col-lg-offset-4 col-lg-4" id="panel">
       <form action="/shorten" method="POST">
-        <br><br><br>
+        <br /><br /><br />
         <div class="group">
-            <input type="text" required name="longurl" autocomplete="off">
-            <span class="highlight"></span>
-            <span class="bar"></span>
-            <label>Enter Long URL *</label>
+          <input type="text" required name="longurl" autocomplete="off" />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Enter Long URL *</label>
         </div>
-        <br><br>
+        <br /><br />
+        <div class="group">
+          <label
+            >BASE URL - <br /><br />
+            <p style="border: 0.5px solid white; padding: 0.7rem">
+              <%=baseUrl%>
+            </p>
+          </label>
+
+          <br /><br />
+        </div>
+        <br /><br />
 
         <div class="group">
-            <label>BASE URL - <input type="text" name="findbase" value="findbase" readonly="readonly"></label>
-            
-            <br><br>
+          <center>
+            <button type="submit" class="btn btn-warning">SUBMIT</button>
+          </center>
         </div>
-        <br><br>
-
-
-<!-- To get current hostname for base URL -->
-<script type="text/javascript">
-  document.getElementsByName("findbase")[0].value = window.location.href;
-</script>
-          <div class="group">
-              <center> <button type="submit" class="btn btn-warning">SUBMIT </button></center>
-          </div>
       </form>
-
-  </div>
-</body>
-
+    </div>
+  </body>
 </html>
