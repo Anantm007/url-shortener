@@ -35,6 +35,6 @@ app.use(express.static("public"));
 app.use("/", require("./routes/index"));
 
 // Starting the server
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`Server started on port ${process.env.PORT || 3001}`);
+app.listen(process.env.PORT || 3004, () => {
+  console.log(`Server started on port ${process.env.PORT || 3004}`);
 });
