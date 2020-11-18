@@ -10,7 +10,11 @@ This is a url shortening service like bit.ly built using MongoDB, Express.js and
 3. npm install
 4. make a .env file with the following keys: MONGOURI, BASEURL
 5. npm run dev
+<<<<<<< HEAD
 6. Open the project on 127.0.0.1:3004
+=======
+6. Open the project on 127.0.0.1:3000
+>>>>>>> d7acd72ba3e5d5d4f95c3f788561be50d9b8dd8f
 ```
 
 ## Features
