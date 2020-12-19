@@ -32,7 +32,7 @@ This is a url shortening service built using MongoDB, Express.js, Node.js and Bo
 
 ### Check out the deployed application at:
 
-- http://url.anantmathur.me/
+- http://shortener.anantmathur.me/
   OR
 - ~~http://prakriti.cf~~
 
