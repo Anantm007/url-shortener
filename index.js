@@ -11,13 +11,17 @@ const { MONGOURI } = process.env;
 mongoose.promise = global.Promise;
 mongoose.connect(
   MONGOURI,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  (err, db) => {
-    if (err) console.log(err);
-    else console.log("Database Connected");
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  },
+  (error, db) => {
+    if (error) console.log(error);
+    else console.log("Database Connected...");
   }
 );
-mongoose.set("useFindAndModify", false);
 
 // Getting data in json format
 app.use(
