@@ -4,24 +4,29 @@
     <!-- Latest compiled and minified CSS -->
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
 
     <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!--Navigation bar-->
     <% include ./includes/navbar.ejs %>
   </head>
 
   <body>
-    <h1 style="text-align: center">Your short URL has been created</h1>
+    <h2 style="text-align: center; margin-top: 1.5rem; color: black">
+      Your short URL has been created
+    </h2>
     <br /><br />
-    <h4 style="text-align: center">
+    <h5 style="text-align: center">
       <a href="/<%=url.code%>"><%=url.shorturl%></a>
-    </h4>
+    </h5>
 
     <!--Copy to clipboard-->
     <div id="secretInfo" style="display: none"><%=url.shorturl%></div>
@@ -31,28 +36,26 @@
     <!--End Copy to clipboard-->
 
     <h3 style="text-align: center"><%=message%></h3>
+    <div class="d-flex justify-content-center">
+      <div class="col-lg-offset-4 col-lg-4" id="panel">
+        <form action="/custom/<%= url.code %>" method="POST">
+          <div style="text-align: center">
+            <h3 style="margin-top: 1rem; color: white">Customise your URL</h3>
+          </div>
+          <br /><br />
+          <div class="group">
+            <input type="text" required name="custom" autocomplete="off" />
+            <label>Enter Custom URL code *</label>
+          </div>
 
-    <div class="col-lg-offset-4 col-lg-4" id="panel">
-      <form action="/custom/<%= url.code %>" method="POST">
-        <label style="text-align: center; margin-top: 20px; margin-left: 15rem"
-          >Customise your URL</label
-        >
-        <br /><br /><br /><br />
-        <div class="group">
-          <input type="text" required name="custom" autocomplete="off" />
-          <label>Enter Custom URL code *</label>
-        </div>
-
-        <br /><br />
-
-        <div class="group">
-          <center>
-            <button type="submit" class="btn btn-warning">SUBMIT</button>
-          </center>
-        </div>
-      </form>
+          <div class="group">
+            <button type="submit" class="btn btn-block btn-warning">
+              SUBMIT
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-
     <!--Copy to clipboard-->
     <script type="text/javascript">
       var $body = document.getElementsByTagName("body")[0];
