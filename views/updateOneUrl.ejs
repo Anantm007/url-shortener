@@ -19,24 +19,30 @@
     <% include ./includes/navbar.ejs %>
   </head>
   <div class="container">
-    <h2 style="color: black; margin-top: 3rem">
-      Find all the created URLs (only the latest 200)
-    </h2>
-    <br />
-    <% urls.forEach(function(url) { %>
+    <h2>Click on the fields to Edit them</h2>
+    <br /><br />
+    <form action="/edit/<%=url._id%>" method="POST">
+      <h4 class="text-danger">Long Url :</h4>
+      <input type="text" name="longurl" value="<%=url.longurl%>" required />
+      <br /><br />
 
-    <div class="card" style="background: #512c96">
-      <div class="card-body">
-        <h5 class="card-title">
-          <a href="/<%=url.code%>" style="color: #f9c6ba"><%=url.shorturl%></a>
-        </h5>
-        <p class="card-text">Original URL: <%=url.longurl%></p>
-        <p class="card-text">Date Created: <%=url.date%></p>
-        <p class="card-text">clicks: <%=url.clicks%></p>
-      </div>
-    </div>
+      <h4 class="text-danger">Short Code :</h4>
+      <input type="text" name="code" value="<%=url.code%>" required />
+      <br /><br />
+
+      <h4 class="text-danger">Short URL :</h4>
+      <input
+        type="text"
+        name="shortUrl"
+        value="<%=url.shorturl%>"
+        readonly="readonly"
+        required
+      />
+      <br /><br />
+
+      <button type="submit" class="btn btn-warning">EDIT</button>
+    </form>
     <br />
-    <% }); %>
   </div>
   <body></body>
 </html>
