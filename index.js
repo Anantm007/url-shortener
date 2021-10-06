@@ -9,6 +9,7 @@ const { MONGOURI } = process.env;
 
 //Connecting to the database
 mongoose.promise = global.Promise;
+
 mongoose.connect(
   MONGOURI,
   {
@@ -17,9 +18,10 @@ mongoose.connect(
     useFindAndModify: false,
     useCreateIndex: true,
   },
+  
   (error, db) => {
     if (error) console.log(error);
-    else console.log("Database Connected...");
+    else console.log("Database has been connected.");
   }
 );
 
@@ -29,6 +31,7 @@ app.use(
     extended: true,
   })
 );
+
 app.use(bodyParser.json({ type: "application/json" }));
 
 // Setting express engine
