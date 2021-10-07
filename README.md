@@ -20,7 +20,7 @@ This is a url shortening service built using MongoDB, Express.js, Node.js and Bo
 3. Timestamp for the url
 4. Archive page to keep a record of all the shortened URLs
 5. Counter for every URL (to keep track of how many times a particular short link was used)
-6. Edit and Delete any URL
+6. Edit and Delete any URL.
 7. API also created for the app i.e. any external application can use this shortener via hitting the api endpoint
 
 ## Technology Stack
